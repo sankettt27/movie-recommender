@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch AI - Movie Recommendation System</title>
+    <meta name="description" content="Discover movies similar to your taste through the power of Machine Learning.">
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div id="particles-js"></div>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1 class="glow-text">CineMatch AI</h1>
+            <p class="subtitle">Find movies similar to your taste</p>
+        </header>
+
+        <main>
+            <!-- Upload Box (Hidden by default, shown if dataset missing) -->
+            <div id="upload-box" class="search-box glass-panel hidden">
+                <div class="upload-wrapper">
+                    <h3>Dataset Required</h3>
+                    <p>The default dataset could not be loaded. Please upload movie_dataset.csv to continue.</p>
+                    <input type="file" id="csv-upload" accept=".csv">
+                    <button id="upload-btn" class="glow-btn" style="margin-top: 1rem;">
+                        <span class="btn-text">Upload CSV</span>
+                        <div class="btn-loader hidden"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search / Selection Box Container -->
+            <div id="main-search-box" class="hidden">
+                <div class="search-box glass-panel">
+                    <div class="input-wrapper">
+                        <input type="text" id="movie-input" placeholder="Type a movie you love... (e.g., Avatar)" autocomplete="off">
+                        <div id="autocomplete-list" class="autocomplete-items"></div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="recommend-btn" class="glow-btn">
+                            <span class="btn-text">Recommend</span>
+                            <div class="btn-loader hidden"></div>
+                        </button>
+                        <button id="surprise-btn" class="glow-btn surprise">
+                            <span class="btn-text">🎲 Surprise Me</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Picks -->
+                <div class="quick-picks">
+                    <p>Or start with a favorite:</p>
+                    <div class="chips">
+                        <span class="chip">The Matrix</span>
+                        <span class="chip">Interstellar</span>
+                        <span class="chip">Inception</span>
+                        <span class="chip">The Dark Knight</span>
+                        <span class="chip">Avatar</span>
+                        <span class="chip">Iron Man</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Notification -->
+            <div id="error-message" class="hidden"></div>
+
+            <!-- Recommended Movies Container -->
+            <div id="results-container" class="results-grid hidden">
+                <!-- Movie cards will be dynamically injected here by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Lightweight Particles.js library for background 3D feel -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

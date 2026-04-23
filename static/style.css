@@ -1,0 +1,437 @@
+:root {
+    --bg-dark: #050505;
+    --primary-red: #ff003c;
+    --dark-red: #8a0021;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --glass-bg: rgba(20, 20, 20, 0.4);
+    --glass-border: rgba(255, 0, 60, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    perspective: 1000px; /* Enable 3D space */
+}
+
+/* Background gradient from black to deep red */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 100%, var(--dark-red) 0%, var(--bg-dark) 60%);
+    z-index: -2;
+    opacity: 0.7;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.glow-text {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #fff, var(--primary-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(255, 0, 60, 0.5);
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+/* Search Box with Glassmorphism */
+.search-box {
+    display: flex;
+    gap: 1rem;
+    max-width: 700px;
+    margin: 0 auto 4rem auto;
+    padding: 1.5rem;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.search-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px 0 rgba(255, 0, 60, 0.15);
+    border-color: rgba(255, 0, 60, 0.4);
+}
+
+.input-wrapper {
+    flex-grow: 1;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+}
+
+/* Autocomplete List */
+.autocomplete-items {
+    position: absolute;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-top: 0.5rem;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.autocomplete-items.active {
+    display: block;
+    animation: fadeIn 0.2s ease forwards;
+}
+
+.autocomplete-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.autocomplete-item:hover {
+    background: rgba(255, 0, 60, 0.2);
+    color: var(--primary-red);
+}
+
+/* Recommend Button */
+.glow-btn {
+    padding: 0 2rem;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(45deg, var(--dark-red), var(--primary-red));
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glow-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.glow-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 0, 60, 0.6);
+}
+
+.glow-btn:hover::before {
+    left: 100%;
+}
+
+.glow-btn:active {
+    transform: scale(0.95);
+}
+
+.btn-loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+/* Error Message */
+#error-message {
+    text-align: center;
+    color: #ff4444;
+    font-weight: 600;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    max-width: 500px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Results Grid */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    perspective: 1500px;
+}
+
+/* 3D Floating Movie Cards */
+.movie-card {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+}
+
+/* Card hover glow effect */
+.movie-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255, 0, 60, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    transform: translateZ(0);
+}
+
+.movie-card:hover {
+    /* Base hover transform, will be overridden by JS for dynamic parallax */
+    transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5), 
+                -5px -5px 15px rgba(255, 0, 60, 0.1),
+                0 0 20px inset rgba(255, 0, 60, 0.1);
+    border-color: rgba(255, 0, 60, 0.5);
+}
+
+.movie-card:hover::before {
+    opacity: 1;
+}
+
+.movie-card h3 {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    transform: translateZ(30px); /* Push text out in 3D space */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.genres {
+    font-size: 0.8rem;
+    color: var(--primary-red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    transform: translateZ(20px);
+}
+
+.overview {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transform: translateZ(10px);
+}
+
+.rank-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
+    background: var(--primary-red);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px var(--primary-red);
+    transform: translateZ(40px);
+}
+
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.glow-btn.surprise {
+    background: linear-gradient(45deg, #111, #333);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+.glow-btn.surprise:hover {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Quick Picks / Chips */
+.quick-picks {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease 0.5s both;
+}
+
+.quick-picks p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.chip {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 0, 60, 0.05);
+    border: 1px solid rgba(255, 0, 60, 0.2);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.chip:hover {
+    background: rgba(255, 0, 60, 0.2);
+    border-color: var(--primary-red);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Keyframe Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cardPop {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9) rotateX(-20deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0);
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .search-box {
+        flex-direction: column;
+    }
+    .glow-btn {
+        padding: 1rem;
+    }
+    .glow-text {
+        font-size: 2.5rem;
+    }
+}
