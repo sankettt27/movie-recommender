@@ -93,6 +93,7 @@ def init_model(dataset_source):
 
 # Initialization logic
 LOCAL_DATASET = "movie_dataset.csv"
+MOVIES_DATASET = "movies.csv"
 SAMPLE_DATASET = "sample_movies.csv"
 DATA_URL = "https://raw.githubusercontent.com/codeheroku/Introduction-to-Machine-Learning-with-Python/master/data/movie_dataset.csv"
 
@@ -102,6 +103,9 @@ def startup():
         if os.path.exists(LOCAL_DATASET):
             print(f"Loading local dataset: {LOCAL_DATASET}")
             init_model(LOCAL_DATASET)
+        elif os.path.exists(MOVIES_DATASET):
+            print(f"Loading movies dataset: {MOVIES_DATASET}")
+            init_model(MOVIES_DATASET)
         elif os.path.exists(SAMPLE_DATASET):
             print(f"Loading sample dataset: {SAMPLE_DATASET}")
             init_model(SAMPLE_DATASET)
@@ -112,6 +116,7 @@ def startup():
         print(f"Initialization failed: {e}. Waiting for local upload via frontend.")
 
 startup()
+
 
 
 # Helper functions
