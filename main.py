@@ -168,5 +168,8 @@ def read_index():
     return FileResponse("static/index.html")
 
 if __name__ == "__main__":
-    print("Starting server on http://localhost:8000")
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    # Get port from environment variable for deployment (Render/Heroku)
+    port = int(os.environ.get("PORT", 8000))
+    print(f"Starting server on http://0.0.0.0:{port}")
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+
