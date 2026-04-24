@@ -91,12 +91,28 @@ def init_model(dataset_source):
     df = df_temp
     print("Model ready!")
 
-# Try loading from URL, if it fails, wait for upload
+# Initialization logic
+LOCAL_DATASET = "movie_dataset.csv"
+SAMPLE_DATASET = "sample_movies.csv"
 DATA_URL = "https://raw.githubusercontent.com/codeheroku/Introduction-to-Machine-Learning-with-Python/master/data/movie_dataset.csv"
-try:
-    init_model(DATA_URL)
-except Exception as e:
-    print(f"Failed to load default dataset: {e}. Waiting for local upload via frontend.")
+
+def startup():
+    global df, cosine_sim
+    try:
+        if os.path.exists(LOCAL_DATASET):
+            print(f"Loading local dataset: {LOCAL_DATASET}")
+            init_model(LOCAL_DATASET)
+        elif os.path.exists(SAMPLE_DATASET):
+            print(f"Loading sample dataset: {SAMPLE_DATASET}")
+            init_model(SAMPLE_DATASET)
+        else:
+            print(f"Attempting to download dataset from {DATA_URL}")
+            init_model(DATA_URL)
+    except Exception as e:
+        print(f"Initialization failed: {e}. Waiting for local upload via frontend.")
+
+startup()
+
 
 # Helper functions
 def get_index_from_title(title):

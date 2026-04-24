@@ -1,13 +1,7 @@
-__pycache__/
-*.py[cod]
-*$py.class
+# Ignore environment files
 .env
 .venv
 env/
 venv/
 ENV/
-env.bak/
-venv.bak/
 
-# Ignore large CSV datasets (users will upload them via UI)
-movie_dataset.csv
